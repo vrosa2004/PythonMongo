@@ -7,17 +7,12 @@ db_connection = db_handle.get_db_connection()
 
 minha_collection_repository = MinhaCollectionRepository(db_connection)
 
-response = minha_collection_repository.select_many({ "name": "Vinicius" })
-#print(response)
-#print()
+# filtro = { "endereco": "Rua 123" }
+#
+# minha_collection_repository.edit_many(filtro, { "idade": 22 })
 
-response2 = minha_collection_repository.select_one({ "name": "Vinicius" })
-#print(response2)
+# minha_collection_repository.edit_many_increment(-3)
 
-# minha_collection_repository.select_if_property_exists()
+#minha_collection_repository.delete()
 
-# minha_collection_repository.select_many_order()
-
-# minha_collection_repository.select_or()
-
-minha_collection_repository.select_by_object_id()
+minha_collection_repository.delete_many()

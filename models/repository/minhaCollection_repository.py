@@ -57,3 +57,37 @@ class MinhaCollectionRepository:
         collection = self.__db_connection.get_collection(self.__collection_name)
         data = collection.find({"_id": ObjectId("6a3774aee918f8aa138b4860") })
         for x in data: print(x)
+
+    def edit(self, name):
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.update_one(
+            {"_id": ObjectId("6a3774aee918f8aa138b4860") },
+            { "$set": { "name": name } }
+        )
+        print(data.modified_count)
+
+    def edit_many(self, filtro, propriedades):
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.update_many(
+            filtro,
+            { "$set": propriedades },
+        )
+        print(data.modified_count)
+
+    def edit_many_increment(self, num):
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.update_many(
+            {"_id": ObjectId("6a3774aee918f8aa138b4860")},
+            {"$inc": { "idade": num }}
+        )
+        print(data.modified_count)
+
+    def delete(self):
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.delete_one( {"_id": ObjectId("6a3774aee918f8aa138b4860") })
+        print(data.deleted_count)
+
+    def delete_many(self):
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.delete_many( {"_id": ObjectId("6a3774aee918f8aa138b4860") })
+        print(data.deleted_count)
