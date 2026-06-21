@@ -1,25 +1,30 @@
 from models.connection_options.connection import DBConnectionHandler
+from models.repository.minhaCollection_repository import MinhaCollectionRepository
 
 db_handle = DBConnectionHandler()
-conn1 = db_handle.get_db_connection()
-print(conn1)
-print()
-
 db_handle.connect_to_db()
-conn2 = db_handle.get_db_connection()
-print(conn2)
-print()
+db_connection = db_handle.get_db_connection()
 
-collection = conn2.get_collection("minhaCollection")
-print(collection)
-print()
+minha_collection_repository = MinhaCollectionRepository(db_connection)
 
-collection.insert_one({
-    "estou": "inserindo",
-    "numero": [123, 456, 789]
-})
+order = {
+    "name": "Vinicius",
+    "endereco": "Rua 123",
+    "pedidos": {
+        "pizza": 1,
+        "hamburguer": 5,
+        "pizza_doce": 1
+    },
+    "cpf": 123456
+}
 
-filter = collection.find({"estou": "inserindo"})
+minha_collection_repository.insert_document(order)
 
-for repository in filter:
-    print(repository)
+list_of_documents = [
+    {"eric": "cartman"},
+    {"stan": "march"},
+    {"kenny": "mcCormick"},
+    {"kyle": "broflovski"}
+]
+
+minha_collection_repository.insert_list_of_documents(list_of_documents)
